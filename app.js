@@ -1,13 +1,15 @@
 var express = require('express');
 var app = express();
-// var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+
+app.use(bodyParser.json());
 
 Genre = require('./models/genre');
 Book = require('./models/book');
 
 //Connect to Mongoose
-mongoose.connect('mongodb://localhost/bookstore')
+mongoose.connect('mongodb://localhost/test')
 var db = mongoose.connection;
 
 app.get('/', (req, res) => {
@@ -23,12 +25,31 @@ app.get('/api/genres', (req, res) => {
     });
 });
 
-app.get('/api/books', (req, res) => {
+app.post('/api/genres', (req, res) => {
+    var genre = req.body;
+    Genre.addGenre(genre, function(err, genre){
+        if(err){
+            throw err;
+        }
+        res.json(genre);
+    });
+});
+
+app.get('/api/books', (req, res) => { 
     Book.getBooks(function(err, books){
         if(err){
             throw err;
         }
         res.json(books);
+    });
+});
+
+app.get('/api/books/:_id', (req, res) => {
+    Book.getBookById(req.params._id, function(err, book){
+        if(err){
+            throw err;
+        }
+        res.json(book);
     });
 });
 
