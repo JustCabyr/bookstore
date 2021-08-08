@@ -46,6 +46,16 @@ app.put('/api/genres/:_id', (req, res) => {
     });
 });
 
+app.delete('/api/genres/:_id', (req, res) => {
+    var id = req.params._id;
+    Genre.removeGenre(id, function(err, genre){
+        if(err){
+            throw err;
+        }
+        res.json(genre);
+    });
+});
+
 app.get('/api/books', (req, res) => { 
     Book.getBooks(function(err, books){
         if(err){
@@ -85,13 +95,13 @@ app.put('/api/books/:_id', (req, res) => {
     });
 });
 
-app.delete('/api/genres/:_id', (req, res) => {
+app.delete('/api/books/:_id', (req, res) => {
     var id = req.params._id;
-    Genre.removeGenre(id, function(err, genre){
+    Book.removeBook(id, function(err, book){
         if(err){
             throw err;
         }
-        res.json(genre);
+        res.json(book);
     });
 });
 
