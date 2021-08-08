@@ -35,6 +35,17 @@ app.post('/api/genres', (req, res) => {
     });
 });
 
+app.put('/api/genres/:_id', (req, res) => {
+    var id = req.params._id;
+    var genre = req.body;
+    Genre.updateGenre(id, genre, {}, function(err, genre){
+        if(err){
+            throw err;
+        }
+        res.json(genre);
+    });
+});
+
 app.get('/api/books', (req, res) => { 
     Book.getBooks(function(err, books){
         if(err){
@@ -50,6 +61,37 @@ app.get('/api/books/:_id', (req, res) => {
             throw err;
         }
         res.json(book);
+    });
+});
+
+app.post('/api/books', (req, res) => {
+    var book = req.body;
+    Book.addBook(book, function(err, book){
+        if(err){
+            throw err;
+        }
+        res.json(book);
+    });
+});
+
+app.put('/api/books/:_id', (req, res) => {
+    var id = req.params._id;
+    var book = req.body;
+    Book.updateBook(id, book, {}, function(err, book){
+        if(err){
+            throw err;
+        }
+        res.json(book);
+    });
+});
+
+app.delete('/api/genres/:_id', (req, res) => {
+    var id = req.params._id;
+    Genre.removeGenre(id, function(err, genre){
+        if(err){
+            throw err;
+        }
+        res.json(genre);
     });
 });
 
