@@ -1,1 +1,1 @@
-# bookstore
+RESTful Web Backend API service using Node.js, Express and MongoDB. A full CRUD bookstore using the MVC framework.
